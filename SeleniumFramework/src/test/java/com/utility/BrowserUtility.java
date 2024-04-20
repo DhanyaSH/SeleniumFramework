@@ -1,7 +1,10 @@
 package com.utility;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -49,7 +52,20 @@ public abstract class BrowserUtility {
 		userNameTextBoxWebElement.click();
 
 	}
-
+	
+	public void searchandclickOn(By locator ,String text) {
+WebElement searchandclick = wait.until(ExpectedConditions.elementToBeClickable(locator));
+List<WebElement>elements =	searchandclick.findElements(locator);
+for(WebElement options: elements) {
+	
+	if(options.getText().equals(text)) {
+		
+		options.click();
+		break;
+		
+	}
+	
+}}
 	public String getVibileText(By locator) {
 
 		WebElement iconInloginpagElement = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -75,17 +91,37 @@ public abstract class BrowserUtility {
 
 	}
 
+	public void getlogout(By LOCATOR) {
+		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(LOCATOR));
+		List<WebElement> elements = element.findElements(LOCATOR);
+		for(int i = 0;i<=elements.size();i++) {		
+		System.out.println(elements.get(i).getText());
+		elements.get(3).click();
+		break;
+
+	}
+	}
 	public String dispayErrorMessage(By Locator) {
-	WebElement errorElement = wait.until(ExpectedConditions.visibilityOfElementLocated(Locator));
-	 return errorElement.getText();
+		WebElement errorElement = wait.until(ExpectedConditions.visibilityOfElementLocated(Locator));
+		return errorElement.getText();
 	}
 
-	public void teardown(WebDriver d) {
+	public void teardown(WebDriver wd2) {
 		wd.close();
 		wd.quit();
 
 	}
 
+	
+	public  String gettittle() {
+	String  tittleString = wd.getTitle();
+		return	tittleString ;
+	}
+	
+	
+	
+	
+	
 	public void sleepFor(int seconds) {
 
 		try {
